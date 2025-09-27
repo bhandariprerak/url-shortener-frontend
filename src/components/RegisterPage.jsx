@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,6 +8,10 @@ const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const [usernameFocused, setUsernameFocused] = useState(false);
+  const [emailFocused, setEmailFocused] = useState(false);
+  const [passwordFocused, setPasswordFocused] = useState(false);
 
   const registerHandler = async (data) => {
     setLoading(true);
@@ -44,7 +46,14 @@ const RegisterPage = () => {
               })}
               autoComplete="username"
               disabled={loading}
+              onFocus={() => setUsernameFocused(true)}
+              onBlur={() => setUsernameFocused(false)}
             />
+            {usernameFocused && !errors.username && (
+              <span className="text-gray-500 text-sm">
+                Username must be 3-24 characters long.
+              </span>
+            )}
             {errors.username && (
               <span className="text-red-500 text-sm">{errors.username.message}</span>
             )}
@@ -65,7 +74,14 @@ const RegisterPage = () => {
               })}
               autoComplete="email"
               disabled={loading}
+              onFocus={() => setEmailFocused(true)}
+              onBlur={() => setEmailFocused(false)}
             />
+            {emailFocused && !errors.email && (
+              <span className="text-gray-500 text-sm">
+                Enter a valid email address (e.g. user@example.com).
+              </span>
+            )}
             {errors.email && (
               <span className="text-red-500 text-sm">{errors.email.message}</span>
             )}
@@ -83,7 +99,14 @@ const RegisterPage = () => {
               })}
               autoComplete="new-password"
               disabled={loading}
+              onFocus={() => setPasswordFocused(true)}
+              onBlur={() => setPasswordFocused(false)}
             />
+            {passwordFocused && !errors.password && (
+              <span className="text-gray-500 text-sm">
+                Password must be at least 6 characters long.
+              </span>
+            )}
             {errors.password && (
               <span className="text-red-500 text-sm">{errors.password.message}</span>
             )}
