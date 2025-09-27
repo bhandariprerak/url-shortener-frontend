@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const features = [
   {
@@ -20,6 +21,8 @@ const features = [
 ]
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+  const dashBoardNavigateHandler = () => {}
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
       <motion.section
@@ -41,27 +44,7 @@ const LandingPage = () => {
               whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(255, 193, 7, 0.3)" }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              onClick={() => {}}
-            >
-              Get Started
-            </motion.button>
-            <motion.button
-              className="px-6 py-3 border border-white rounded-lg font-semibold hover:bg-white hover:text-black transition"
-              whileHover={{ scale: 1.07, backgroundColor: "#fff", color: "#000" }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              onClick={() => {}}
-            >
-              Learn More
-            </motion.button>
-          </div>
-          <div className="flex space-x-4">
-            <motion.button
-              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-yellow-400 rounded-lg font-semibold text-black shadow-lg"
-              whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(255, 193, 7, 0.3)" }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              onClick={() => {}}
+              onClick={dashBoardNavigateHandler}
             >
               Create Short Link
             </motion.button>
@@ -70,7 +53,7 @@ const LandingPage = () => {
               whileHover={{ scale: 1.07, backgroundColor: "#fff", color: "#000" }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              onClick={() => {}}
+              onClick={dashBoardNavigateHandler}
             >
               Manage Links
             </motion.button>

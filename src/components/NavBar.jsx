@@ -99,7 +99,7 @@ const NavBar = ({ isAuthenticated, onLogout }) => {
           ) : (
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
               <Link
-                to="/auth"
+                to="/register"
                 className="bg-indigo-700 text-white font-semibold rounded px-4 py-2 shadow transition hover:bg-indigo-800"
               >
                 Login/Sign Up
@@ -160,7 +160,7 @@ const NavBar = ({ isAuthenticated, onLogout }) => {
             ) : (
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  to="/auth"
+                  to="/register"
                   className="bg-indigo-700 text-white font-semibold rounded px-4 py-2 shadow transition hover:bg-indigo-800"
                   onClick={() => setMenuOpen(false)}
                 >
