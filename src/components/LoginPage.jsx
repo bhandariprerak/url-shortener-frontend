@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import api from '../api/api'; // Adjust path if your api instance is elsewhere
+import { useStoreContext } from '../contextApi/ContextApi';
 
 const LoginPage = () => {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { setToken } = useStoreContext();
 
     const [usernameFocused, setUsernameFocused] = useState(false);
     const [emailFocused, setEmailFocused] = useState(false);
@@ -17,10 +19,11 @@ const LoginPage = () => {
         setLoading(true);
         try {
             const { data: response } = await api.post('/api/auth/public/login', data);
+            // Update context here
+            setToken(response.token);
             // Store the token in localStorage
-            console.log(response.token);
             localStorage.setItem('JWT_TOKEN', JSON.stringify(response.token));
-            // Optionally, you can also update context or state here if needed
+            
             toast.success('Login successful!');
             reset();
             navigate('/');
