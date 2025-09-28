@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { useStoreContext } from "../contextApi/ContextApi";
@@ -25,6 +24,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const dashBoardNavigateHandler = () => {}
   const { token } = useStoreContext();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
       <motion.section
