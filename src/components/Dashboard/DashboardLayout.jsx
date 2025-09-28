@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion';
 import {
     LineChart,
     Line,
@@ -62,11 +63,15 @@ const DashboardLayout = () => {
                 </ResponsiveContainer>
             </div>
             <div className='py-5 sm:text-end text-center'>
-                <button
-                    className='bg-custom-gradient px-4 py-2 rounded-md text-white'
-                    onClick={() => setShortenPopUp(true)}>
+                <motion.button
+                    className="px-6 py-3 bg-gradient-to-r from-pink-500 to-yellow-400 rounded-lg font-semibold text-black shadow-lg"
+                    whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(255, 193, 7, 0.3)" }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    onClick={() => setShortenPopUp(true)}
+                >
                     Create a New Short URL
-                </button>
+                </motion.button>
             </div>
 
             <div>
