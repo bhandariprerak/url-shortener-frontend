@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaLink, FaCode, FaRocket } from 'react-icons/fa'
 
 const AboutPage = () => {

@@ -27,7 +27,7 @@ const Graph = ({ graphData }) => {
       barCategoryGap="50%"
       className="w-full"
     >
-      <CartesianGrid strokeDasharray="10 5 2 5"/>
+      <CartesianGrid strokeDasharray="10 5 2 5" stroke="#e5e7eb"/>
       <XAxis
         dataKey="clickDate"
         tickFormatter={formatDate}
