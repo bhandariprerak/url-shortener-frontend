@@ -6,7 +6,7 @@ const Graph = ({ graphData }) => {
 
   const formatDate = (dateString) => {
     try {
-      return format(parseISO(dateString), "MMM d");
+      return format(parseISO(dateString), "MMM dd, yyyy");
     } catch {
       return dateString;
     }
@@ -27,7 +27,7 @@ const Graph = ({ graphData }) => {
       barCategoryGap="50%"
       className="w-full"
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <CartesianGrid strokeDasharray="10 5 2 5"/>
       <XAxis
         dataKey="clickDate"
         tickFormatter={formatDate}
@@ -35,10 +35,10 @@ const Graph = ({ graphData }) => {
           value: "Date",
           position: "insideBottom",
           offset: -5,
-          fill: "#FF0000",
+          fill: "#1f2937",
           fontWeight: "bold",
           fontSize: 16,
-          fontFamily: "Arial",
+          fontFamily: "Inter, sans-serif",
         }}
       />
       <YAxis
@@ -46,10 +46,10 @@ const Graph = ({ graphData }) => {
           value: "Number Of Clicks",
           angle: -90,
           position: "insideLeft",
-          fill: "#FF0000",
+          fill: "#1f2937",
           fontWeight: "bold",
           fontSize: 16,
-          fontFamily: "Arial",
+          fontFamily: "Inter, sans-serif",
         }}
         allowDecimals={false}
       />

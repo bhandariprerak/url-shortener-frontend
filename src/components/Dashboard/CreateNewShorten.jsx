@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion';
 import { useStoreContext } from '../../contextApi/ContextApi';
 import { useForm } from 'react-hook-form';
 // import { data } from 'autoprefixer';
@@ -35,8 +36,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
             },
           });
 
-        //   const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${res.shortUrl}`}`; // TODO: use this later. add /s/ in backend. to avoid conflict with frontend or backend routes.
-          const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL + `${res.shortUrl}`}`;
+          const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${res.shortUrl}`}`; // TODO: use this later. add /s/ in backend. to avoid conflict with frontend or backend routes.
           navigator.clipboard.writeText(shortenUrl).then(() => {
             toast.success("Short URL Copied to Clipboard", {
                 position: "bottom-center",
@@ -49,7 +49,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
           reset();
           setOpen(false);
     } catch (error) {
-        toast.error("Create ShortURL Failed");
+        toast.error("Error creating short URL");
     } finally {
         setLoading(false);
     }
@@ -76,18 +76,21 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
             id="originalUrl"
             placeholder="https://example.com"
             type="url"
-            message="Url is required"
+            message="URL is required"
             register={register}
             errors={errors}
           />
         </div>
 
-        <button
-          className="bg-customRed font-semibold text-white w-32  bg-custom-gradient  py-2  transition-colors  rounded-md my-3"
-          type="text"
+        <motion.button
+          className="px-6 py-3 bg-gradient-to-r from-pink-500 to-yellow-400 rounded-lg font-semibold text-black shadow-lg my-3"
+          type="submit"
+          whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(255, 193, 7, 0.3)" }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
         >
           {loading ? "Loading..." : "Create"}
-        </button>
+        </motion.button>
 
         {!loading && (
           <Tooltip title="Close">

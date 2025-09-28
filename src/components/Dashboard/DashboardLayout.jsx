@@ -1,14 +1,5 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion';
-import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer
-} from 'recharts';
 import { useStoreContext } from '../../contextApi/ContextApi'
 import { useFetchMyShortUrls, useFetchTotalClicks } from '../../hooks/useQuery'
 import ShortenPopUp from './ShortenPopUp'
@@ -16,7 +7,7 @@ import { FaLink } from 'react-icons/fa'
 import ShortenUrlList from './ShortenUrlList'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../Loader'
-import { dummyData } from '../../dummyData/data';
+import Graph from './Graph'
 
 const DashboardLayout = () => {
     // const refetch = false;
@@ -52,15 +43,11 @@ const DashboardLayout = () => {
                      </h3>
                    </div>
                 )}
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={totalClicks}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="count" stroke="#8884d8" activeDot={{ r: 8 }} />
-                  </LineChart>
-                </ResponsiveContainer>
+                {totalClicks.length > 0 && (
+                  <div className="h-96 flex justify-center items-center">
+                    <Graph graphData={totalClicks} />
+                </div>
+                )}
             </div>
             <div className='py-5 sm:text-end text-center'>
                 <motion.button
@@ -92,9 +79,9 @@ const DashboardLayout = () => {
         )}
 
         <ShortenPopUp
-          refetch={refetch}
           open={shortenPopUp}
           setOpen={setShortenPopUp}
+          refetch={refetch}
         />
     </div>
   )

@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useStoreContext } from '../../contextApi/ContextApi';
 import { Hourglass } from 'react-loader-spinner';
 import Graph from './Graph';
+import { motion } from 'framer-motion';
 
 const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
     const { token } = useStoreContext();
@@ -61,66 +62,52 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
     }, [selectedUrl]);
 
   return (
-    <div className={`bg-slate-100 shadow-lg border border-dotted  border-slate-500 px-6 sm:py-1 py-3 rounded-md  transition-all duration-100 `}>
-    <div className={`flex sm:flex-row flex-col  sm:justify-between w-full sm:gap-0 gap-5 py-5 `}>
-      <div className="flex-1 sm:space-y-1 max-w-full overflow-x-auto overflow-y-hidden ">
-        <div className="text-slate-900 pb-1 sm:pb-0   flex items-center gap-2 ">
-            {/* <a href={`${import.meta.env.VITE_REACT_SUBDOMAIN}/${shortUrl}`}
-                target="_blank"
-                className=" text-[17px]  font-montserrat font-[600] text-linkColor ">
-                {subDomain + "/" + `${shortUrl}`}
-            </a> */}
-            {/* TODO: use this first one later. */}
-            {/* <Link
-              target='_'
-              className='text-[17px]  font-montserrat font-[600] text-linkColor'
-              to={import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${shortUrl}`}>
-                  {subDomain + "/s/" + `${shortUrl}`}
-            </Link> */}
+    <div className={`bg-white shadow-md border border-gray-200 rounded-lg px-8 sm:py-6 py-5 transition-all duration-150 font-inter`}>
+    <div className={`flex sm:flex-row flex-col sm:justify-between w-full sm:gap-0 gap-6 py-5 `}>
+      <div className="flex-1 sm:space-y-2 max-w-full overflow-x-auto overflow-y-hidden ">
+        <div className="text-gray-900 pb-2 sm:pb-0 flex items-center gap-3 font-semibold text-lg tracking-wide">
             <Link
-              target='_'
-              className='text-[17px]  font-montserrat font-[600] text-linkColor'
+              target='_blank'
+              className='text-primary-600 hover:text-primary-800 underline underline-offset-2 transition-colors duration-200 font-inter font-semibold flex items-center gap-2'
               to={import.meta.env.VITE_REACT_FRONT_END_URL + '/' + `${shortUrl}`}>
                   {subDomain + '/' + `${shortUrl}`}
+                  <FaExternalLinkAlt className="text-primary-600 text-[20px]" />
             </Link>
-            <FaExternalLinkAlt className="text-linkColor" />
             </div>
 
-        <div className="flex items-center gap-1 ">
-            <h3 className=" text-slate-700 font-[400] text-[17px] ">
+        <div className="flex items-center gap-2 ">
+            <h3 className=" text-gray-700 font-normal text-base font-inter break-words">
               {originalUrl}
             </h3>
           </div>
 
-          <div className="flex   items-center gap-8 pt-6 ">
-            <div className="flex gap-1  items-center font-semibold  text-green-800">
-              <span>
-                <MdOutlineAdsClick className="text-[22px] me-1" />
-              </span>
-              <span className="text-[16px]">{clickCount}</span>
-              <span className="text-[15px] ">
+          <div className="flex items-center gap-10 pt-7 ">
+            <div className="flex gap-2 items-center font-semibold text-green-700 text-lg">
+              <MdOutlineAdsClick className="text-[26px]" />
+              <span className="text-lg">{clickCount}</span>
+              <span className="text-base ">
                 {clickCount === 0 || clickCount === 1 ? "Click" : "Clicks"}
               </span>
             </div>
 
-            <div className="flex items-center gap-2 font-semibold text-lg text-slate-800">
-              <span>
-                <FaRegCalendarAlt />
-              </span>
-              <span className="text-[17px]">
+            <div className="flex items-center gap-3 font-semibold text-lg text-gray-800">
+              <FaRegCalendarAlt className="text-[22px]" />
+              <span className="text-lg">
                 {dayjs(createdDate).format("MMM DD, YYYY")}
               </span>
             </div>
             </div>
         </div>
 
-        <div className="flex  flex-1  sm:justify-end items-center gap-4">
-            <div
+        <div className="flex flex-1 sm:justify-end items-center gap-6">
+            <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={async () => {
                     try {
                         await navigator.clipboard.writeText(
                             // `${import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${shortUrl}`}` //TODO: use this later. add /s/ in backend. to avoid conflict with frontend or backend routes.
-                            `${import.meta.env.VITE_REACT_FRONT_END_URL + `${shortUrl}`}`
+                            `${import.meta.env.VITE_REACT_FRONT_END_URL + '/' + `${shortUrl}`}` // this is what the copied link will look like.
                         );
                         setIsCopied(true);
                         setTimeout(() => setIsCopied(false), 2000);
@@ -128,57 +115,63 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                         // Optionally handle error
                     }
                 }}
-                className="flex cursor-pointer gap-1 items-center bg-btnColor py-2  font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
+                className="flex cursor-pointer gap-2 items-center bg-blue-600 hover:bg-blue-700 py-3 px-7 rounded-lg shadow-lg text-white font-semibold select-none"
             >
-                <button className="">{isCopied ? "Copied" : "Copy"}</button>
+                <button className="font-inter text-white">{isCopied ? "Copied" : "Copy"}</button>
                 {isCopied ? (
-                    <LiaCheckSolid className="text-md" />
+                    <LiaCheckSolid className="text-lg" />
                 ) : (
-                    <IoCopy className="text-md" />
+                    <IoCopy className="text-lg" />
                 )}
-            </div>
+            </motion.div>
 
-            <div
+            <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => analyticsHandler(shortUrl)}
-                className="flex cursor-pointer gap-1 items-center bg-rose-700 py-2 font-semibold shadow-md shadow-slate-500 px-6 rounded-md text-white "
+                className="flex cursor-pointer gap-2 items-center bg-rose-600 hover:bg-rose-700 py-3 px-7 rounded-lg shadow-lg text-white font-semibold select-none"
             >
-                <button>Analytics</button>
-                <MdAnalytics className="text-md" />
-          </div>
+                <button className="font-inter">Analytics</button>
+                <MdAnalytics className="text-lg" />
+          </motion.div>
           </div>
         </div>
     <React.Fragment>
         <div className={`${
             analyticToggle ? "flex" : "hidden"
-          }  max-h-96 sm:mt-0 mt-5 min-h-96 relative  border-t-2 w-[100%] overflow-hidden `}>
+          } max-h-[500px] min-h-[500px] sm:mt-0 mt-6 relative border-t-2 w-full overflow-visible px-6 py-4 pb-8 rounded-b-lg bg-gray-50`}>
             {loader ? (
                 <div className="min-h-[calc(450px-140px)] flex justify-center items-center w-full">
-                    <div className="flex flex-col items-center gap-1">
+                    <div className="flex flex-col items-center gap-3">
                     <Hourglass
                         visible={true}
-                        height="50"
-                        width="50"
+                        height="60"
+                        width="60"
                         ariaLabel="hourglass-loading"
                         wrapperStyle={{}}
                         wrapperClass=""
-                        colors={['#306cce', '#72a1ed']}
+                        colors={['#2563eb', '#3b82f6']}
                         />
-                        <p className='text-slate-700'>Please Wait...</p>
+                        <p className='text-gray-700 font-inter text-base font-medium'>Please wait...</p>
                     </div>
                 </div>
                 ) : ( 
-                    <>{analyticsData.length === 0 && (
-                        <div className="absolute flex flex-col  justify-center sm:items-center items-end  w-full left-0 top-0 bottom-0 right-0 m-auto">
-                            <h1 className=" text-slate-800 font-serif sm:text-2xl text-[15px] font-bold mb-1">
-                                No Data For This Time Period
+                    <>
+                      {analyticsData.length === 0 && (
+                        <div className="absolute inset-0 flex items-center justify-center w-full h-full">
+                          <div className="bg-gray-100 border border-gray-300 shadow-md rounded-xl px-8 py-10 flex flex-col items-center justify-center w-full max-w-lg mx-auto">
+                            <h1 className="text-gray-800 font-serif text-2xl sm:text-3xl font-bold mb-4 font-inter text-center">
+                              No Data For This Time Period
                             </h1>
-                            <h3 className="sm:w-96 w-[90%] sm:ml-0 pl-6 text-center sm:text-lg text-[12px] text-slate-600 ">
-                                Share your short link to view where your engagements are
-                                coming from
+                            <h3 className="text-center text-lg sm:text-xl text-gray-600 font-inter mt-2">
+                              Share your short link to view where your engagements are coming from
                             </h3>
+                          </div>
                         </div>
-                    )}
+                      )}
+                      <div className="flex justify-center items-center w-full h-full">
                         <Graph graphData={analyticsData} />
+                      </div>
                     </>
                     )}
         </div>
