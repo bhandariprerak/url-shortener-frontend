@@ -26,9 +26,9 @@ const LoginPage = () => {
             
             toast.success('Login successful!');
             reset();
-            navigate('/');
+            navigate('/dashboard');
         } catch (err) {
-            let message = err?.response?.data?.message || 'Login failed. Please try again.';
+            let message = err?.response?.data?.message || 'Invalid credentials. Please try again.';
             toast.error(message);
         } finally {
             setLoading(false);
