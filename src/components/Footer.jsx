@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import { FaGithub, FaTwitter, FaGlobe } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaGlobe } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
         <div className="flex space-x-6 mb-4 md:mb-0">
           <a
-            href="https://github.com/prerakbhandari/sword"
+            href="https://github.com/bhandariprerak"
             className="hover:text-gray-200 transition"
             aria-label="GitHub"
             target="_blank"
@@ -26,16 +26,16 @@ const Footer = () => {
             <FaGithub size={26} />
           </a>
           <a
-            href="https://twitter.com/swordlinks"
+            href="https://www.linkedin.com/in/prerak-bhandari/"
             className="hover:text-gray-200 transition"
-            aria-label="Twitter"
+            aria-label="LinkedIn"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaTwitter size={26} />
+            <FaLinkedin size={26} />
           </a>
           <a
-            href="https://swordlinks.com"
+            href="https://bhandariprerak.github.io/my-portfolio/"
             className="hover:text-gray-200 transition"
             aria-label="Website"
             target="_blank"
