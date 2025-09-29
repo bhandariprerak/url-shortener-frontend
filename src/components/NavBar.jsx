@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { useStoreContext } from '../contextApi/ContextApi';
 
 // Example: You may need to replace this with your actual authentication logic
 // For demo, let's assume isAuthenticated prop is passed or you can use context
-const NavBar = ({ isAuthenticated, onLogout }) => {
+const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
-    }
+  const { token, setToken } = useStoreContext();
+  const isAuthenticated = Boolean(token);
+  const onLogoutHandler = () => {
+    setToken(null);
+    localStorage.removeItem("JWT_TOKEN");
     setMenuOpen(false);
     navigate("/");
   };
@@ -29,6 +30,7 @@ const NavBar = ({ isAuthenticated, onLogout }) => {
             className="flex items-center font-montserrat font-extrabold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-white via-pink-400 to-yellow-300 tracking-tight"
             style={{ WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
           >
+            <img src="/favicon.svg" alt="Sword Logo" className="w-8 h-8 mr-2" />
             Sword
           </Link>
         </motion.div>
@@ -82,29 +84,37 @@ const NavBar = ({ isAuthenticated, onLogout }) => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   to="/dashboard"
-                  className="bg-indigo-700 text-white hover:bg-indigo-800 font-medium transition rounded px-4 py-2 shadow"
+                  className="text-white hover:text-gray-100 font-medium transition"
                 >
                   Dashboard
                 </Link>
               </motion.div>
               <motion.button
-                onClick={handleLogout}
-                className="bg-indigo-700 text-white font-semibold rounded px-4 py-2 ml-2 shadow transition hover:bg-indigo-800"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
+                onClick={onLogoutHandler}
+                className="font-inter bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg px-4 py-2 ml-2 shadow-lg transition"
+                whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(0,0,0,0.3)" }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                style={{ transition: "filter 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.filter = "brightness(0.92)"}
+                onMouseLeave={e => e.currentTarget.style.filter = ""}
               >
                 Logout
               </motion.button>
             </>
           ) : (
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                to="/register"
-                className="bg-indigo-700 text-white font-semibold rounded px-4 py-2 shadow transition hover:bg-indigo-800"
-              >
-                Login/Sign Up
-              </Link>
-            </motion.div>
+            <motion.button
+              className="font-inter bg-gradient-to-r from-pink-500 to-yellow-400 text-white font-semibold rounded-lg px-4 py-2 shadow-lg transition"
+              whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(0,0,0,0.3)" }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              style={{ transition: "filter 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.filter = "brightness(0.92)"}
+              onMouseLeave={e => e.currentTarget.style.filter = ""}
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </motion.button>
           )}
         </div>
       </div>
@@ -149,24 +159,31 @@ const NavBar = ({ isAuthenticated, onLogout }) => {
                   </Link>
                 </motion.div>
                 <motion.button
-                  onClick={handleLogout}
-                  className="bg-indigo-700 text-white font-semibold rounded px-4 py-2 mt-2 shadow transition hover:bg-indigo-800"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
+                  onClick={onLogoutHandler}
+                  className="font-inter bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg px-4 py-2 mt-2 shadow-lg transition"
+                  whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(0,0,0,0.3)" }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  style={{ transition: "filter 0.2s" }}
+                  onMouseEnter={e => e.currentTarget.style.filter = "brightness(0.92)"}
+                  onMouseLeave={e => e.currentTarget.style.filter = ""}
                 >
                   Logout
                 </motion.button>
               </>
             ) : (
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                <Link
-                  to="/register"
-                  className="bg-indigo-700 text-white font-semibold rounded px-4 py-2 shadow transition hover:bg-indigo-800"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Login/Sign Up
-                </Link>
-              </motion.div>
+              <motion.button
+                className="font-inter bg-gradient-to-r from-pink-500 to-yellow-400 text-white font-semibold rounded-lg px-4 py-2 shadow-lg transition"
+                whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(0,0,0,0.3)" }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                style={{ transition: "filter 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.filter = "brightness(0.92)"}
+                onMouseLeave={e => e.currentTarget.style.filter = ""}
+                onClick={() => { navigate("/login"); setMenuOpen(false); }}
+              >
+                Login
+              </motion.button>
             )}
           </motion.div>
         )}

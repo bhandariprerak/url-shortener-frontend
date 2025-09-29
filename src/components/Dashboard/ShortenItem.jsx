@@ -116,7 +116,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                         // Optionally handle error
                     }
                 }}
-                className="flex cursor-pointer gap-2 items-center bg-blue-600 hover:bg-blue-700 py-3 px-7 rounded-lg shadow-lg text-white font-semibold select-none"
+                className="flex cursor-pointer gap-2 items-center bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 py-3 px-7 rounded-lg shadow-lg text-white font-semibold select-none"
             >
                 <button className="font-inter text-white">{isCopied ? "Copied" : "Copy"}</button>
                 {isCopied ? (
@@ -130,7 +130,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => analyticsHandler(shortUrl)}
-                className="flex cursor-pointer gap-2 items-center bg-rose-600 hover:bg-rose-700 py-3 px-7 rounded-lg shadow-lg text-white font-semibold select-none"
+                className="flex cursor-pointer gap-2 items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 py-3 px-7 rounded-lg shadow-lg text-white font-semibold select-none"
             >
                 <button className="font-inter">Analytics</button>
                 <MdAnalytics className="text-lg" />

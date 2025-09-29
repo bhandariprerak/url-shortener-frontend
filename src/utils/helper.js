@@ -16,6 +16,6 @@ export const getApps = () => {
 export const getSubDomain = (location) => {
     const locationParts = location.split(".");
     const isLocalhost = locationParts.slice(-1)[0] === "localhost";
-    const sliceTill = isLocalhost ? -1 : -2;
+    const sliceTill = isLocalhost ? -1 : -2; // for localhost take only first part (localhost), for other domains take all but last two parts (ex: domain and com)
     return locationParts.slice(0, sliceTill).join("");
 };
