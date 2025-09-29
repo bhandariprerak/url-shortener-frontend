@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import api from '../api/api'; // Adjust path if your api instance is elsewhere
 import { useStoreContext } from '../contextApi/ContextApi';
+import { motion } from 'framer-motion';
 
 const LoginPage = () => {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
@@ -36,17 +37,17 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login to your Account</h2>
+        <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white min-h-screen flex items-center justify-center">
+            <div className="w-full max-w-md rounded-lg p-8">
+                <h2 className="text-2xl font-bold mb-6 text-center text-white">Login to your Account</h2>
                 <form onSubmit={handleSubmit(loginHandler)} className="space-y-5">
                     {/* Username */}
                     <div>
-                        <label className="block text-gray-700 mb-1" htmlFor="username">Username</label>
+                        <label className="block text-gray-200 mb-1" htmlFor="username">Username</label>
                         <input
                             id="username"
                             type="text"
-                            className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
+                            className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-black font-inter ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
                             {...register('username', {
                                 required: 'Username is required',
                                 minLength: { value: 3, message: 'Username must be at least 3 characters' },
@@ -58,7 +59,7 @@ const LoginPage = () => {
                             onBlur={() => setUsernameFocused(false)}
                         />
                         {usernameFocused && !errors.username && (
-                            <span className="text-gray-500 text-sm">
+                            <span className="text-gray-200 text-sm">
                                 Username must be 3-24 characters long.
                             </span>
                         )}
@@ -69,11 +70,11 @@ const LoginPage = () => {
 
                     {/* Password */}
                     <div>
-                        <label className="block text-gray-700 mb-1" htmlFor="password">Password</label>
+                        <label className="block text-gray-200 mb-1" htmlFor="password">Password</label>
                         <input
                             id="password"
                             type="password"
-                            className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                            className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-black font-inter ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
                             {...register('password', {
                                 required: 'Password is required',
                                 minLength: { value: 6, message: 'Password must be at least 6 characters' },
@@ -84,7 +85,7 @@ const LoginPage = () => {
                             onBlur={() => setPasswordFocused(false)}
                         />
                         {passwordFocused && !errors.password && (
-                            <span className="text-gray-500 text-sm">
+                            <span className="text-gray-200 text-sm">
                                 Password must be at least 6 characters long.
                             </span>
                         )}
@@ -94,18 +95,20 @@ const LoginPage = () => {
                     </div>
                     {/* Submit Button */}
                     <div>
-                        <button
+                        <motion.button
                             type="submit"
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition duration-150 disabled:opacity-60"
-                            disabled={loading || isSubmitting}
+                            className="w-full px-6 py-3 bg-gradient-to-r from-pink-500 to-yellow-400 rounded-lg font-semibold text-black shadow-lg disabled:opacity-60"
+                            whileHover={{ scale: 1.07, boxShadow: "0 8px 24px rgba(255, 193, 7, 0.3)" }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 400, damping: 20 }}
                         >
                             {loading || isSubmitting ? 'Logging In...' : 'Log In'}
-                        </button>
+                        </motion.button>
                     </div>
                 </form>
-                <div className="mt-5 text-center text-gray-600">
+                <div className="mt-5 text-center text-gray-200">
                     Don't have an account?{' '}
-                    <Link to="/register" className="text-blue-600 hover:underline font-medium">
+                    <Link to="/register" className="text-blue-400 hover:underline font-medium">
                         Register
                     </Link>
                 </div>

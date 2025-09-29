@@ -68,7 +68,7 @@ const LandingPage = () => {
           className="md:w-1/2 mt-12 md:mt-0"
         >
           <img
-            src="https://wallpapers.com/images/featured/demon-slayer-tanjiro-rjjv7bxgdfl9qwy3.jpg?auto=format&fit=crop&w=800&q=80"
+            src="https://media.sketchfab.com/models/df6f4573803e4149ab5aede91af6775c/thumbnails/3786706dc9d94e278d4e70bd3e73df76/2ea2a08cb50c4ea5ba13971c6bbb7a54.jpeg?auto=format&fit=crop&w=800&q=80"
             alt="URL Shortening and Analytics Illustration"
             className="rounded-lg shadow-2xl"
           />
