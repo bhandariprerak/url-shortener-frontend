@@ -2,14 +2,18 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 const ShortenUrlPage = () => {
-    const { slug } = useParams();
-
+    const { url } = useParams();
+    console.log("url:", url);
     useEffect(() => {
-        if (slug) {
-            window.location.href = import.meta.env.VITE_BACKEND_URL + `/${slug}`;
+        if (url) {
+            window.location.href = import.meta.env.VITE_BACKEND_URL + `/${url}`;
         }
-    }, [slug]);
-  return <p>Redirecting...</p>;
+    }, [url]);
+  return (
+    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
+      <p className="text-white font-inter text-lg">Redirecting you to your destination...</p>
+    </div>
+  );
 }
 
 export default ShortenUrlPage

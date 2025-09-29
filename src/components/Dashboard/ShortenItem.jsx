@@ -70,8 +70,8 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
             <Link
               target='_blank'
               className='text-primary-600 hover:text-primary-800 underline underline-offset-2 transition-colors duration-200 font-inter font-semibold flex items-center gap-2'
-              to={import.meta.env.VITE_REACT_FRONT_END_URL + '/' + `${shortUrl}`}>
-                  {subDomain + '/' + `${shortUrl}`}
+              to={import.meta.env.VITE_REACT_FRONT_END_URL + '/p/' + `${shortUrl}`}>
+                  {subDomain + '/p/' + `${shortUrl}`}
                   <FaExternalLinkAlt className="text-primary-600 text-[20px]" />
             </Link>
             </div>
@@ -107,8 +107,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                 onClick={async () => {
                     try {
                         await navigator.clipboard.writeText(
-                            // `${import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${shortUrl}`}` //TODO: use this later. add /s/ in backend. to avoid conflict with frontend or backend routes.
-                            `${import.meta.env.VITE_REACT_FRONT_END_URL + '/' + `${shortUrl}`}` // this is what the copied link will look like.
+                            `${import.meta.env.VITE_REACT_FRONT_END_URL + "/p/" + `${shortUrl}`}`
                         );
                         setIsCopied(true);
                         setTimeout(() => setIsCopied(false), 2000);

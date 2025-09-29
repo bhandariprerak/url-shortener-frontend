@@ -36,7 +36,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
             },
           });
 
-          const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL + "/s/" + `${res.shortUrl}`}`; // TODO: use this later. add /s/ in backend. to avoid conflict with frontend or backend routes.
+          const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL + '/p/' + `${res.shortUrl}`}`;
           navigator.clipboard.writeText(shortenUrl).then(() => {
             toast.success("Short URL Copied to Clipboard", {
                 position: "bottom-center",
@@ -45,7 +45,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
             });
           });
 
-          // await refetch();
+          await refetch();
           reset();
           setOpen(false);
     } catch (error) {
