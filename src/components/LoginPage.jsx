@@ -40,6 +40,10 @@ const LoginPage = () => {
         <div className="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white min-h-screen flex items-center justify-center">
             <div className="w-full max-w-md rounded-lg p-8">
                 <h2 className="text-2xl font-bold mb-6 text-center text-white">Login to your Account</h2>
+                <p className="text-center text-yellow-300 mb-4 text-sm">
+                    Note: I'm using Render's free tier for the backend. The instance may spin down when inactive,
+                    which can delay responses by up to 50 seconds or more. Please be patient!
+                </p>
                 <form onSubmit={handleSubmit(loginHandler)} className="space-y-5">
                     {/* Username */}
                     <div>
