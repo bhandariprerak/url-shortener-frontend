@@ -5,7 +5,7 @@ import { FaExternalLinkAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { IoCopy } from 'react-icons/io5';
 import { LiaCheckSolid } from 'react-icons/lia';
 import { MdAnalytics, MdOutlineAdsClick } from 'react-icons/md';
-import api from '../../api/api';
+import { urlApi } from '../../api/api';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStoreContext } from '../../contextApi/ContextApi';
 import { Hourglass } from 'react-loader-spinner';
@@ -21,10 +21,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
     const [selectedUrl, setSelectedUrl] = useState("");
     const [analyticsData, setAnalyticsData] = useState([]);
 
-    const subDomain = import.meta.env.VITE_REACT_FRONT_END_URL.replace(
-        /^https?:\/\//,
-        ""
-      );
+    const redirectBaseUrl = import.meta.env.VITE_REDIRECT_SERVICE_URL;
 
     const analyticsHandler = (shortUrl) => {
         if (!analyticToggle) {
@@ -36,7 +33,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
     const fetchMyShortUrl = async () => {
         setLoader(true);
         try {
-             const { data } = await api.get(`/api/urls/analytics/${selectedUrl}?startDate=2024-12-01T00:00:00&endDate=2030-12-31T23:59:59`, { // TODO: change this date to dynamic date.
+             const { data } = await urlApi.get(`/api/urls/analytics/${selectedUrl}?startDate=2024-12-01T00:00:00&endDate=2030-12-31T23:59:59`, { // TODO: change this date to dynamic date.
                         headers: {
                           "Content-Type": "application/json",
                           Accept: "application/json",
@@ -70,8 +67,8 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
             <Link
               target='_blank'
               className='text-primary-600 hover:text-primary-800 underline underline-offset-2 transition-colors duration-200 font-inter font-semibold flex items-center gap-2'
-              to={import.meta.env.VITE_REACT_FRONT_END_URL + '/p/' + `${shortUrl}`}>
-                  {subDomain + '/p/' + `${shortUrl}`}
+              to={redirectBaseUrl + '/' + shortUrl}>
+                  {redirectBaseUrl + '/' + shortUrl}
                   <FaExternalLinkAlt className="text-primary-600 text-[20px]" />
             </Link>
             </div>
@@ -107,7 +104,7 @@ const ShortenItem = ({ originalUrl, shortUrl, clickCount, createdDate }) => {
                 onClick={async () => {
                     try {
                         await navigator.clipboard.writeText(
-                            `${import.meta.env.VITE_REACT_FRONT_END_URL + "/p/" + `${shortUrl}`}`
+                            `${redirectBaseUrl + '/' + shortUrl}`
                         );
                         setIsCopied(true);
                         setTimeout(() => setIsCopied(false), 2000);

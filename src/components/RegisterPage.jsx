@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import api from '../api/api'; // Adjust path if your api instance is elsewhere
+import { userApi } from '../api/api'; // Adjust path if your api instance is elsewhere
 
 const RegisterPage = () => {
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
@@ -17,7 +17,7 @@ const RegisterPage = () => {
   const registerHandler = async (data) => {
     setLoading(true);
     try {
-      await api.post('/api/auth/public/register', data);
+      await userApi.post('/api/auth/public/register', data);
       toast.success('Registration successful! Please login.');
       reset();
       navigate('/login');

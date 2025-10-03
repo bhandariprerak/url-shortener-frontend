@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query"
-import api from "../api/api"
+import { urlApi, userApi } from "../api/api"
 
 
 export const useFetchMyShortUrls = (token, onError) => {
     return useQuery({
         queryKey: ["my-shortenurls"],
         queryFn: async () => {
-            return await api.get(
+            return await urlApi.get(
                 "/api/urls/myurls",
                 {
                     headers: {
@@ -34,7 +34,7 @@ export const useFetchTotalClicks = (token, onError) => {
     return useQuery({
         queryKey: ["url-totalclick"], // param1 - this is the query key
         queryFn: async () => { // param2 - this is the function that returns a promise
-            return await api.get(
+            return await urlApi.get(
                 "/api/urls/totalClicks?startDate=2024-01-01&endDate=2030-12-31", // TODO: make the start and end date dynamic to take user input. For now, hardcoding it.
                 {
                     headers: {

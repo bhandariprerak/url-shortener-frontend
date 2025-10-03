@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import api from '../api/api'; // Adjust path if your api instance is elsewhere
+import { userApi } from '../api/api'; // Adjust path if your api instance is elsewhere
 import { useStoreContext } from '../contextApi/ContextApi';
 import { motion } from 'framer-motion';
 
@@ -19,7 +19,7 @@ const LoginPage = () => {
     const loginHandler = async (data) => {
         setLoading(true);
         try {
-            const { data: response } = await api.post('/api/auth/public/login', data);
+            const { data: response } = await userApi.post('/api/auth/public/login', data);
             // Update context here
             setToken(response.token);
             // Store the token in localStorage

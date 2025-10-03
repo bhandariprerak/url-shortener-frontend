@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import TextField from '../TextField';
 import { Tooltip } from '@mui/material';
 import { RxCross2 } from 'react-icons/rx';
-import api from '../../api/api';
+import { urlApi } from '../../api/api';
 import toast from 'react-hot-toast';
 
 const CreateNewShorten = ({ setOpen, refetch }) => {
@@ -28,7 +28,7 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
   const createShortUrlHandler = async (data) => {
     setLoading(true);
     try {
-        const { data: res } = await api.post("/api/urls/shorten", data, {
+        const { data: res } = await urlApi.post("/api/urls/shorten", data, {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
@@ -36,7 +36,8 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
             },
           });
 
-          const shortenUrl = `${import.meta.env.VITE_REACT_FRONT_END_URL + '/p/' + `${res.shortUrl}`}`;
+          const redirectBaseUrl = import.meta.env.VITE_REDIRECT_SERVICE_URL;
+          const shortenUrl = `${redirectBaseUrl}/${res.shortUrl}`;
           navigator.clipboard.writeText(shortenUrl).then(() => {
             toast.success("Short URL Copied to Clipboard", {
                 position: "bottom-center",
